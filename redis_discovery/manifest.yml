@@ -1,0 +1,31 @@
+---
+# this manifest deploys two applications at once
+# the apps are in frontend and backend subdirectories
+# cf push should be run from main directory, where manifest.yml is
+# ------------------------------------------------------------------------------
+
+# all applications use these settings and services
+domain: scapp.io
+disk_quota: 128M
+#buildpack: https://github.com/cloudfoundry/buildpack-go.git
+
+applications:
+- name: redis-discovery-frontend
+  memory: 32M
+  instances: 2
+  host: redis-discovery-frontend
+  path: ./frontend/
+  command: frontend
+  services:
+  - redis-discovery
+
+- name: redis-discovery-backend
+  memory: 64M
+  instances: 2
+  no-route: true
+  host: redis-discovery-backend
+  path: ./backend/
+  command: backend
+  services:
+  - redis-discovery
+  - mongodb-backend

@@ -1,0 +1,25 @@
+<div class="row">
+    <h4>Welcome to the Cloud Foundry redis-discovery frontend, written in <a href="http://golang.org">Go</a>.</h4>
+</div>
+
+<div class="row">
+    <div class="jumbotron">
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="inputText">New message:</label>
+                <textarea type="text" id="inputText" name="text" class="form-control"></textarea>
+            </div>
+            <button type="reset" class="btn btn-default">Clear</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+{{ range .Content }}
+<div class="row">
+    <ul class="list-group">
+        <li class="list-group-item disabled"><small>{{ .Timestamp }}</small></li>
+        <li class="list-group-item">{{ .Text }}</li>
+    </ul>
+</div>
+{{ end }}

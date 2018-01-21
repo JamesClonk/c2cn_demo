@@ -14,3 +14,5 @@
 .glide/
 
 # binaries
+redis_discovery/backend/backend
+redis_discovery/frontend/frontend

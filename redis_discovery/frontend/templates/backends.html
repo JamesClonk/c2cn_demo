@@ -1,0 +1,22 @@
+<div class="row">
+    <h4>Available redis-discovery backends</h4>
+</div>
+
+<div class="row">
+    <table class="table table-striped table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{ range $num, $url := .Content }}
+        <tr>
+            <th scope="row">{{ $num }}</th>
+            <td><a href="http://{{ $url }}" target="_blank">{{ $url }}</a></td>
+        </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</div>
