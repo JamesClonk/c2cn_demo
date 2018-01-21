@@ -13,7 +13,7 @@ func getRedisConnection() (redis.Conn, error) {
 		return nil, errors.New("Service is nil")
 	}
 
-	address := fmt.Sprintf("%v:%v", service.Credentials["hostname"], service.Credentials["port"])
+	address := fmt.Sprintf("%v:%v", service.Credentials["host"], service.Credentials["port"])
 	conn, err := redis.Dial("tcp", address)
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("Cannot connect to Redis[%v]: %v", address, err))
@@ -36,7 +36,7 @@ func registerBackend() error {
 	defer c.Close()
 
 	// add VCAP_APPLICATION.instance_id as key with a 15s TTL to redis for service discovery
-	_, err = c.Do("SETEX", env.Application.InstanceID, "15", env.InstanceInternalIP)
+	_, err = c.Do("SETEX", env.Application.InstanceID, "15", fmt.Sprintf("%s:%d", env.InstanceInternalIP, env.Port))
 	if err != nil {
 		return err
 	}

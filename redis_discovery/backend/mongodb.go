@@ -14,12 +14,12 @@ type Entry struct {
 
 func getMongoDB() (*mgo.Database, error) {
 	service := env.GetService(mongoDbServiceInstance)
-	session, err := mgo.Dial(fmt.Sprintf("%v", service.Credentials["url"]))
+	session, err := mgo.Dial(fmt.Sprintf("%v", service.Credentials["uri"]))
 	if err != nil {
 		return nil, err
 	}
 	session.SetMode(mgo.Monotonic, true)
-	return session.DB(fmt.Sprintf("%v", service.Credentials["db"])), nil
+	return session.DB(fmt.Sprintf("%v", service.Credentials["database"])), nil
 }
 
 func insertEntry(text string) error {

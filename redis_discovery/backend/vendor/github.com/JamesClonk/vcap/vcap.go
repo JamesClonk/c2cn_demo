@@ -70,6 +70,13 @@ func New() (*VCAP, error) {
 		}
 		vcap.Port = int(p)
 	}
+	if port := os.Getenv("PORT"); port != "" {
+		p, err := strconv.ParseInt(port, 10, 32)
+		if err != nil {
+			return nil, err
+		}
+		vcap.Port = int(p)
+	}
 
 	vcap.InstanceAddress = os.Getenv("CF_INSTANCE_ADDR")
 	vcap.InstanceIP = os.Getenv("CF_INSTANCE_IP")
@@ -111,13 +118,13 @@ func New() (*VCAP, error) {
 		vcap.Application.Host = "localhost"
 	}
 	if vcap.Application.Port == 0 {
-		vcap.Application.Port = 4000
+		vcap.Application.Port = 8080
 	}
 	if vcap.Host == "" {
 		vcap.Host = "localhost"
 	}
 	if vcap.Port == 0 {
-		vcap.Port = 4000
+		vcap.Port = 8080
 	}
 	if vcap.InstanceIP == "" {
 		vcap.InstanceIP = "127.0.0.1"

@@ -13,7 +13,7 @@ func getRedisConnection() (redis.Conn, error) {
 		return nil, errors.New("Service is nil")
 	}
 
-	address := fmt.Sprintf("%v:%v", service.Credentials["hostname"], service.Credentials["port"])
+	address := fmt.Sprintf("%v:%v", service.Credentials["host"], service.Credentials["port"])
 	conn, err := redis.Dial("tcp", address)
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("Cannot connect to Redis[%v]: %v", address, err))
