@@ -26,12 +26,13 @@ type VCAP struct {
 		Started *Timestamp `json:"started_at_timestamp"`
 		State   *Timestamp `json:"state_timestamp"`
 	}
-	Host            string
-	Port            int
-	Services        map[string][]Service
-	InstanceAddress string
-	InstanceIP      string
-	InstancePort    int
+	Host               string
+	Port               int
+	Services           map[string][]Service
+	InstanceAddress    string
+	InstanceIP         string
+	InstanceInternalIP string
+	InstancePort       int
 }
 
 type Service struct {
@@ -72,6 +73,7 @@ func New() (*VCAP, error) {
 
 	vcap.InstanceAddress = os.Getenv("CF_INSTANCE_ADDR")
 	vcap.InstanceIP = os.Getenv("CF_INSTANCE_IP")
+	vcap.InstanceInternalIP = os.Getenv("CF_INSTANCE_INTERNAL_IP")
 	if port := os.Getenv("CF_INSTANCE_PORT"); port != "" {
 		p, err := strconv.ParseInt(port, 10, 32)
 		if err != nil {
@@ -116,6 +118,12 @@ func New() (*VCAP, error) {
 	}
 	if vcap.Port == 0 {
 		vcap.Port = 4000
+	}
+	if vcap.InstanceIP == "" {
+		vcap.InstanceIP = "127.0.0.1"
+	}
+	if vcap.InstanceInternalIP == "" {
+		vcap.InstanceInternalIP = "127.0.0.1"
 	}
 
 	return vcap, nil

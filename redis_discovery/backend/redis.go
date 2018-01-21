@@ -36,7 +36,7 @@ func registerBackend() error {
 	defer c.Close()
 
 	// add VCAP_APPLICATION.instance_id as key with a 15s TTL to redis for service discovery
-	_, err = c.Do("SETEX", env.Application.InstanceID, "15", env.InstanceAddress)
+	_, err = c.Do("SETEX", env.Application.InstanceID, "15", env.InstanceInternalIP)
 	if err != nil {
 		return err
 	}

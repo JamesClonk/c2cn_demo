@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	redisServiceInstance = "redis-discovery "
+	redisServiceInstance = "redis-discovery"
 	redisBackendSet      = "redis-discovery-backends"
 )
 
